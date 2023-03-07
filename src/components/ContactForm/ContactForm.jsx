@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { getAllContacts } from 'redux/contacts/selectors';
 import { addNewContact, fetchContacts } from 'redux/operations';
 
 // ========== styles ===========
@@ -9,8 +8,6 @@ import { addNewContact, fetchContacts } from 'redux/operations';
 import { Form, Input, AddBtn } from './ContactForm.styled';
 
 const ContactForm = () => {
-  const contacts = useSelector(getAllContacts);
-
   const dispatch = useDispatch();
 
   const [state, setState] = useState({ name: '', phone: '' });

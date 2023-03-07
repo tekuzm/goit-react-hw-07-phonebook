@@ -12,17 +12,15 @@ import {
 } from './actions';
 
 const initialState = {
-  contacts: {
-    items: [],
-    loading: false,
-    error: null,
-  },
-  filter: '',
+  items: [],
+  loading: false,
+  error: null,
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: initialState.contacts,
+  initialState,
+  reducers: {},
   extraReducers: {
     [fetchContactsLoading]: store => {
       store.loading = true;
