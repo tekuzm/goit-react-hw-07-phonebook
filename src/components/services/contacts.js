@@ -9,9 +9,9 @@ export const getAllContacts = async () => {
   return data;
 };
 
-export const addContact = async data => {
-  const { data: result } = await contactsInstance.post('/', data);
-  return result;
+export const addContact = async contact => {
+  const { data } = await contactsInstance.post('/', contact);
+  return data;
 };
 
 export const removeContact = async id => {

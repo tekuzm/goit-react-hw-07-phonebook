@@ -45,7 +45,7 @@ export const addNewContact = data => {
         return false;
       }
       dispatch(addContactLoading());
-      const result = await addContact();
+      const result = await addContact(data);
       dispatch(addContactSuccess(result));
     } catch ({ response }) {
       dispatch(addContactError(response.data.message));
