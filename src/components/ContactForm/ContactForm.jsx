@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllContacts } from 'redux/contacts/selectors';
-import { fetchAddContact, fetchAllContacts } from 'redux/operations';
+import { addNewContact, fetchContacts } from 'redux/operations';
 
 // ========== styles ===========
 
@@ -16,14 +16,14 @@ const ContactForm = () => {
   const [state, setState] = useState({ name: '', phone: '' });
 
   useEffect(() => {
-    dispatch(fetchAllContacts());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   // Handle form submit
   const handleSubmit = e => {
     e.preventDefault();
 
-    dispatch(fetchAddContact({ name, phone }));
+    dispatch(addNewContact({ name, phone }));
     setState({ name: '', phone: '' });
     return true;
   };

@@ -1,25 +1,25 @@
 import { getAllContacts, removeContact } from 'components/services/contacts';
 import {
-  fetchAddContactError,
-  fetchAddContactLoading,
-  fetchAddContactSuccess,
-  fetchAllContactsError,
-  fetchAllContactsLoading,
-  fetchAllContactsSuccess,
-  fetchRemoveContactError,
-  fetchRemoveContactLoading,
-  fetchRemoveContactSuccess,
+  addContactError,
+  addContactLoading,
+  addContactSuccess,
+  fetchContactsError,
+  fetchContactsLoading,
+  fetchContactsSuccess,
+  deleteContactError,
+  deleteContactLoading,
+  deleteContactSuccess,
 } from './contacts/actions';
 import { addContact } from './contacts/slice';
 
-export const fetchAllContacts = () => {
+export const fetchContacts = () => {
   const func = async dispatch => {
     try {
-      dispatch(fetchAllContactsLoading()); // request
+      dispatch(fetchContactsLoading()); // request
       const data = await getAllContacts();
-      dispatch(fetchAllContactsSuccess(data)); // success response
+      dispatch(fetchContactsSuccess(data)); // success response
     } catch ({ response }) {
-      dispatch(fetchAllContactsError(response.data.message)); // response with error
+      dispatch(fetchContactsError(response.data.message)); // response with error
     }
   };
   return func;
@@ -36,7 +36,7 @@ const isDuplicate = (contacts, { name }) => {
   return Boolean(contact);
 };
 
-export const fetchAddContact = data => {
+export const addNewContact = data => {
   const func = async (dispatch, getState) => {
     try {
       const { contacts } = getState();
@@ -44,24 +44,24 @@ export const fetchAddContact = data => {
         alert(`${data.name} is already in contacts.`);
         return false;
       }
-      dispatch(fetchAddContactLoading());
+      dispatch(addContactLoading());
       const result = await addContact();
-      dispatch(fetchAddContactSuccess(result));
+      dispatch(addContactSuccess(result));
     } catch ({ response }) {
-      dispatch(fetchAddContactError(response.data.message));
+      dispatch(addContactError(response.data.message));
     }
   };
   return func;
 };
 
-export const fetchRemoveContact = id => {
+export const deleteContact = id => {
   const func = async dispatch => {
     try {
-      dispatch(fetchRemoveContactLoading());
+      dispatch(deleteContactLoading());
       await removeContact(id);
-      dispatch(fetchRemoveContactSuccess(id));
+      dispatch(deleteContactSuccess(id));
     } catch ({ response }) {
-      dispatch(fetchRemoveContactError(response.data.message));
+      dispatch(deleteContactError(response.data.message));
     }
   };
   return func;

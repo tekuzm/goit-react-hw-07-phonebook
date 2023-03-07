@@ -1,17 +1,17 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const fetchAllContactsLoading = createAction('contacts/fetch/loading');
-export const fetchAllContactsSuccess = createAction('contacts/fetch/success');
-export const fetchAllContactsError = createAction('contacts/fetch/error');
+export const fetchContactsLoading = createAction('contacts/fetchAll/loading');
+export const fetchContactsSuccess = createAction('contacts/fetchAll/success');
+export const fetchContactsError = createAction('contacts/fetchAll/error');
 
-export const fetchAddContactLoading = createAction('contacts/add/loading');
-export const fetchAddContactSuccess = createAction('contacts/add/success');
-export const fetchAddContactError = createAction('contacts/add/error');
+export const addContactLoading = createAction('contacts/addContact/loading');
+export const addContactSuccess = createAction('contacts/addContact/success');
+export const addContactError = createAction('contacts/addContact/error');
 
-export const fetchRemoveContactLoading = createAction(
-  'contacts/remove/loading'
+export const deleteContactLoading = createAction(
+  'contacts/deleteContact/loading'
 );
-export const fetchRemoveContactSuccess = createAction(
-  'contacts/remove/success'
+export const deleteContactSuccess = createAction(
+  'contacts/deleteContact/success'
 );
-export const fetchRemoveContactError = createAction('contacts/remove/error');
+export const deleteContactError = createAction('contacts/deleteContact/error');

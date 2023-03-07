@@ -8,13 +8,13 @@ import ContactItem from 'components/ContactItem/ContactItem';
 
 import { List } from './ContactList.styled';
 import { useDispatch } from 'react-redux';
-import { fetchRemoveContact } from 'redux/operations';
+import { deleteContact } from 'redux/operations';
 
 const ContactList = ({ contacts }) => {
   const dispatch = useDispatch();
 
   const handleDeleteContact = id => {
-    dispatch(fetchRemoveContact(id));
+    dispatch(deleteContact(id));
   };
 
   return (
