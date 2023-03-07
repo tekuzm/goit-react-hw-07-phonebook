@@ -8,7 +8,7 @@ import ContactItem from 'components/ContactItem/ContactItem';
 
 import { List } from './ContactList.styled';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/contacts/operations';
 
 const ContactList = ({ contacts }) => {
   const dispatch = useDispatch();
