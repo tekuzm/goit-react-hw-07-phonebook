@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addContact, fetchContacts } from 'redux/contacts/operations';
+import { getContacts } from 'redux/contacts/selectors';
 
 // ========== styles ===========
 
 import { Form, Input, AddBtn } from './ContactForm.styled';
 
 const ContactForm = () => {
+  const contacts = useSelector(getContacts);
+
   const dispatch = useDispatch();
 
   const [state, setState] = useState({ name: '', phone: '' });
@@ -16,9 +19,24 @@ const ContactForm = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  // Find duplicates
+  const isDuplicate = name => {
+    const normalizedName = name.toLowerCase();
+
+    const contact = contacts.items.find(({ name }) => {
+      return name.toLowerCase() === normalizedName;
+    });
+    return Boolean(contact);
+  };
+
   // Handle form submit
   const handleSubmit = e => {
     e.preventDefault();
+
+    if (isDuplicate(name)) {
+      alert(`${name} is already in contacts.`);
+      return false;
+    }
 
     dispatch(addContact({ name, phone }));
     setState({ name: '', phone: '' });
