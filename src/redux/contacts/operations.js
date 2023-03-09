@@ -22,26 +22,30 @@ export const addContact = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const result = await addNewContact(data);
+      if (data.onSuccess) {
+        data.onSuccess();
+      }
       return result;
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);
     }
+  },
+  {
+    // Find duplicates
+    condition: (data, { getState }) => {
+      const { name } = data;
+      const { contacts } = getState();
+      const normalizedName = name.toLowerCase();
+      const result = contacts.items.find(({ name }) => {
+        return name.toLowerCase() === normalizedName;
+      });
+
+      if (result) {
+        alert(`${name} is already in contacts.`);
+        return false;
+      }
+    },
   }
-  // {
-  //   // Find duplicates
-  //   condition: (data, { getState }) => {
-  //     const { name } = data;
-  //     const { contacts } = getState();
-  //     const normalizedName = name.toLowerCase();
-  //     const result = contacts.items.find(({ name }) => {
-  //       return name.toLowerCase() === normalizedName;
-  //     });
-  //     if (result) {
-  //       alert(`${name} is already in contacts.`);
-  //       return false;
-  //     }
-  //   },
-  // }
 );
 
 export const deleteContact = createAsyncThunk(
