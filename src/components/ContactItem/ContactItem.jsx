@@ -10,9 +10,7 @@ const ContactItem = ({ id, name, phone, deleteItem }) => {
 
   const handleDelete = async () => {
     setLoading(true);
-
     await deleteItem(id);
-
     setLoading(false);
   };
 

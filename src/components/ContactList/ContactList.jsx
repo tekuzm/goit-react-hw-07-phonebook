@@ -13,8 +13,8 @@ import { deleteContact } from 'redux/contacts/operations';
 const ContactList = ({ contacts }) => {
   const dispatch = useDispatch();
 
-  const handleDeleteContact = id => {
-    dispatch(deleteContact(id));
+  const handleDeleteContact = async id => {
+    await dispatch(deleteContact(id));
   };
 
   return (
