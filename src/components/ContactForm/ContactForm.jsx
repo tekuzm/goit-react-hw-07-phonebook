@@ -11,24 +11,37 @@ const ContactForm = () => {
   const dispatch = useDispatch();
 
   const [state, setState] = useState({ name: '', phone: '' });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
   // Handle form submit
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    dispatch(
-      addContact({
-        name,
-        phone,
-        onSuccess: () => {
-          setState({ name: '', phone: '' });
-        },
-      })
-    );
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await dispatch(
+        addContact({
+          name,
+          phone,
+          onSuccess: () => {
+            setState({ name: '', phone: '' });
+          },
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
 
     // dispatch(addContact({ name, phone }))
     //   .then(({ error }) => {
@@ -76,7 +89,7 @@ const ContactForm = () => {
         placeholder="Enter phone number"
       />
 
-      <AddBtn type="submit">Add contact</AddBtn>
+      <AddBtn type="submit">{loading ? 'Loading...' : 'Add contact'}</AddBtn>
     </Form>
   );
 };
