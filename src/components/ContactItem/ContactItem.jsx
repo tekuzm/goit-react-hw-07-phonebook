@@ -1,18 +1,31 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 // ========== styles ==========
 
 import { Item, Bullet, DeleteBtn } from './ContactItem.styled';
 
-const ContactItem = ({ id, name, phone, deleteItem }) => (
-  <Item>
-    <Bullet></Bullet>
-    {name}: {phone}
-    <DeleteBtn onClick={() => deleteItem(id)} type="button">
-      Delete
-    </DeleteBtn>
-  </Item>
-);
+const ContactItem = ({ id, name, phone, deleteItem }) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleDelete = async () => {
+    setLoading(true);
+
+    await deleteItem(id);
+
+    setLoading(false);
+  };
+
+  return (
+    <Item>
+      <Bullet></Bullet>
+      {name}: {phone}
+      <DeleteBtn onClick={handleDelete} type="button" disabled={loading}>
+        {loading ? 'Loading...' : 'Delete'}
+      </DeleteBtn>
+    </Item>
+  );
+};
 
 export default ContactItem;
 
